@@ -4,6 +4,26 @@ All notable changes to `phil/http-cache-tags-bundle` will be documented in this 
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## 0.1.1-alpha - 2026-11-25
+
+### Added
+
+- `http.client`, `http.timeout` and `http.max_duration`: the HTTP client of the purgers, `http_client` by default, and
+  how long a purge call may take, 5 and 10 seconds by default; `TIMEOUT` and `MAX_DURATION` of `VarnishPurger` and
+  `CloudflarePurger`, and their last two arguments, optional.
+
+### Changed
+
+- The development requirements ask for the latest minor of each dependency (`doctrine/orm` 3.8, `doctrine/dbal` 4.6,
+  `doctrine/doctrine-bundle` 3.4, `twig/twig` 3.31, …).
+- The development requirements take `twig/twig` 3.31.1 or later, which fixes the advisories of its sandbox published on
+  2026-11-24.
+
+### Security
+
+- `VarnishPurger` and `CloudflarePurger` called without a timeout: a slow cache held a worker until
+  `default_socket_timeout`, 60 seconds. Every call waits 5 seconds at most for a byte and lasts 10 at most by default.
+
 ## 0.1.0-alpha - 2026-11-11
 
 ### Added
